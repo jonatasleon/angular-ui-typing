@@ -1,0 +1,38 @@
+body {
+    padding-top: 10px;
+}
+.ui-typing {
+    white-space: nowrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    animation: typing 5s steps(60, start) infinite;
+}
+.ui-typing::after {
+    content: "|";
+    animation: blink .75s infinite;
+}
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    5% {
+        width: 0;
+    }
+    20% {
+        width: 100%;
+    }
+    80% {
+        width: 100%;
+    }
+    95% {
+        width: 0;
+    }
+    to {
+        width: 0;
+    }
+}
+@keyframes blink {
+    to {
+        opacity: .0;
+    }
+}

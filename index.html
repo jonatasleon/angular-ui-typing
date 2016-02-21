@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="thisApp">
+    <head>
+        <meta charset="utf-8">
+        <title>UiTyping</title>
+        <script src="./bower_components/angular/angular.js"></script>
+        <link rel="stylesheet" href="./uiTyping.css">
+        <script src="./uiTyping.js"></script>
+        <script type="text/javascript">
+            angular.module("thisApp", ["uiTyping"]);
+            angular.module("thisApp").controller("ThisCtrl", function($scope) {
+                $scope.typeOfNouns = [
+                    "Proper Nouns",
+                    "Material Nouns",
+                    "Compound Nouns",
+                    "Countable Nouns"
+                ];
+            });
+        </script>
+    </head>
+    <body ng-controller="ThisCtrl">
+        <div>
+            <h1>
+                <ui-typing values="typeOfNouns" looping="true"></typing>
+            </h1>
+        </div>
+    </body>
+</html>
