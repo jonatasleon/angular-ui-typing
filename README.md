@@ -21,7 +21,5 @@ angular.module("myApp").controller("myCtrl", function($scope) {
 ```
 ``` html
 <!-- index.html -->
-<h1>
-    <ui-typing values="typeOfNouns" looping="true"></typing>
-</h1>
+<h1 ui-typing="typeOfNouns" looping="true"></h1>
 ```
