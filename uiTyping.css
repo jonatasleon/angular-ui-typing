@@ -1,11 +1,13 @@
-body {
-    padding-top: 10px;
-}
 .ui-typing {
     white-space: nowrap;
     word-wrap: break-word;
     overflow: hidden;
-    animation: typing 5s steps(60, start) infinite;
+}
+.ui-typing.ui-typing-write {
+    animation: typing 2.5s steps(60, start) 1;
+}
+.ui-typing.ui-typing-delete {
+    animation: deleting 2.5s steps(60, start) 1;
 }
 .ui-typing::after {
     content: "|";
@@ -15,17 +17,19 @@ body {
     from {
         width: 0;
     }
-    5% {
-        width: 0;
-    }
-    20% {
+    40% {
         width: 100%;
     }
-    80% {
+    to {
         width: 100%;
     }
-    95% {
-        width: 0;
+}
+@keyframes deleting {
+    from {
+        width: 100%;
+    }
+    60% {
+        width: 60%;
     }
     to {
         width: 0;

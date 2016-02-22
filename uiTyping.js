@@ -1,42 +1,47 @@
 angular.module("uiTyping", []);
 angular.module("uiTyping").directive("uiTyping", ["$interval",
     function($interval) {
-        function resolveAnimate(config, callback) {
-            this.index = 0;
-            this.values = config.values;
-            this.length = this.values.length;
-            this.looping = config.looping;
-            this.callback = callback;
-
-            var changeCurrentText = function() {
-                if (this.index < this.length) {
-                    this.callback(values[this.index++]);
-                    if (this.index === this.length && this.looping){
-                        this.index = 0;
-                    }
-                } else {
-                    $interval.cancel(this.interval);
-                }
-            }.bind(this);
-
-            changeCurrentText();
-            this.interval = $interval(changeCurrentText, 5000);
-        }
         return {
-            template: '<div class="ui-typing">{{value}}</div>',
+            template: '<div ng-class="currentAnimation" class="ui-typing">{{value}}</div>',
             restrict: "E",
             scope: {
                 values: "=",
                 looping: "=?"
             },
             link: function($scope, $element, attr) {
-                var config = {
-                    values: $scope.values,
-                    looping: !!$scope.looping
+                $scope.currentAnimation = "ui-typing-write";
+                if (!angular.isDefined($scope.looping)) {
+                    $scope.looping = false;
                 }
-                resolveAnimate(config, function(value) {
-                    $scope.value = value;
-                });
+                var changeNow = true,
+                    index = 0,
+                    interval;
+
+                function animationConfig() {
+                    if (index < $scope.values.length) {
+                        resolveAnimation();
+                    } else {
+                        if ($scope.looping) {
+                            index = 0;
+                            resolveAnimation();
+                        } else {
+                            $interval.cancel(interval);
+                        }
+                    }
+                }
+
+                function resolveAnimation() {
+                    if (changeNow) {
+                        $scope.currentAnimation = "ui-typing-write";
+                        $scope.value = $scope.values[index++];
+                    } else {
+                        $scope.currentAnimation = "ui-typing-delete";
+                    }
+                    changeNow = !changeNow;
+                }
+
+                animationConfig();
+                interval = $interval(animationConfig, 2500);
             }
         }
     }
